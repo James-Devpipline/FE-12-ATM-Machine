@@ -65,26 +65,50 @@ class User extends Account {}
 
 const firstUser = new User("John Doe");
 
-firstUser.viewBalance();
-firstUser.atmChange((deposit = true), 500);
-firstUser.viewBalance();
-firstUser.atmChange((deposit = false), 2500);
-firstUser.viewBalance();
-firstUser.atmChange((deposit = false), 1500);
-firstUser.viewBalance();
+// firstUser.viewBalance();
+// firstUser.atmChange((deposit = true), 500);
+// firstUser.viewBalance();
+// firstUser.atmChange((deposit = false), 2500);
+// firstUser.viewBalance();
+// firstUser.atmChange((deposit = false), 1500);
+// firstUser.viewBalance();
 
-// function atmMain() {
-//   isActive = true;
+function atmMain() {
+  let isActive = true;
 
-//   function atmMenu() {}
+  while (isActive) {
+    function atmMenu() {
+      let menuPrompt = prompt(
+        `Hello ${firstUser.accountName} \n[1] View Current Balance \n[2] Withdraw funds \n[3] Deposit funds \n[4] Exit`
+      );
 
-//   function atmDeposit() {}
+      if (menuPrompt) {
+        if (menuPrompt === "1") {
+          firstUser.viewBalance();
+        } else if (menuPrompt === "2") {
+          let withdrawAmount = prompt(
+            `How much would you like to withdraw? \nYou currently have $${firstUser.accountBalance} in your account.`
+          );
 
-//   function atmWithdrawal() {}
+          firstUser.atmChange((deposit = false), parseInt(withdrawAmount));
+        } else if (menuPrompt === "3") {
+          let depositAmount = prompt(
+            `How much would you like to deposit? \nYou currently have $${firstUser.accountBalance} in your account.`
+          );
 
-//   function viewBalance() {}
+          firstUser.atmChange((deposit = true), parseInt(depositAmount));
+        } else if (menuPrompt === "4") {
+          alert("GoodBye!");
+          isActive = !isActive;
+        } else {
+          console.error("INVALID INPUT");
+          alert("Error: INVALID INPUT");
+        }
+      }
+    }
 
-// while (isActive) {
+    atmMenu();
+  }
+}
 
-// }
-// }
+atmMain();

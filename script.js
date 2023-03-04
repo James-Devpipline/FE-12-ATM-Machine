@@ -65,14 +65,6 @@ class User extends Account {}
 
 const firstUser = new User("John Doe");
 
-// firstUser.viewBalance();
-// firstUser.atmChange((deposit = true), 500);
-// firstUser.viewBalance();
-// firstUser.atmChange((deposit = false), 2500);
-// firstUser.viewBalance();
-// firstUser.atmChange((deposit = false), 1500);
-// firstUser.viewBalance();
-
 function atmMain() {
   let isActive = true;
 

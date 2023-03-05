@@ -46,17 +46,11 @@ class Account {
         `You have deposited $${amount} to your account. \nYour new balance is now $${newAmount}`
       );
     } else {
-      if (amount > this.accountBalance) {
-        return alert(
-          `WITHDRAWAL ERROR: \nYou have $${this.accountBalance} in your account, you cannot take out $${amount}`
-        );
-      } else {
-        const newAmount = this.accountBalance - amount;
-        this.accountBalance = newAmount;
-        return alert(
-          `You have withdrew $${amount} from your account, your new balance is now $${newAmount}`
-        );
-      }
+      const newAmount = this.accountBalance - amount;
+      this.accountBalance = newAmount;
+      return alert(
+        `You have withdrew $${amount} from your account, your new balance is now $${newAmount}`
+      );
     }
   }
 }
@@ -67,6 +61,11 @@ const firstUser = new User("John Doe");
 
 function atmMain() {
   let isActive = true;
+
+  const receipt = {
+    withdrew: 0,
+    depostied: 0,
+  };
 
   while (isActive) {
     function atmMenu() {
@@ -82,15 +81,29 @@ function atmMain() {
             `How much would you like to withdraw? \nYou currently have $${firstUser.accountBalance} in your account.`
           );
 
-          firstUser.atmChange((deposit = false), parseInt(withdrawAmount));
+          if (firstUser.accountBalance < withdrawAmount) {
+            alert(
+              `WITHDRAWAL ERROR: \nYou have $${firstUser.accountBalance} in your account, you cannot take out $${withdrawAmount}`
+            );
+          } else {
+            firstUser.atmChange((deposit = false), parseInt(withdrawAmount));
+            receipt.withdrew += parseInt(withdrawAmount);
+          }
         } else if (menuPrompt === "3") {
           let depositAmount = prompt(
             `How much would you like to deposit? \nYou currently have $${firstUser.accountBalance} in your account.`
           );
 
           firstUser.atmChange((deposit = true), parseInt(depositAmount));
+          receipt.depostied += parseInt(depositAmount);
         } else if (menuPrompt === "4") {
           alert("GoodBye!");
+          alert(
+            `Reciept \nWithdrew $${receipt.withdrew} \nDeposited: $${receipt.depostied} \nBalance: $${firstUser.accountBalance}`
+          );
+          console.log(
+            `Reciept \nWithdrew $${receipt.withdrew} \nDeposited: $${receipt.depostied} \nBalance: $${firstUser.accountBalance}`
+          );
           isActive = !isActive;
         } else {
           console.error("INVALID INPUT");

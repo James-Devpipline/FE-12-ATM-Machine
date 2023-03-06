@@ -39,14 +39,15 @@ class Account {
   }
 
   atmChange(deposit, amount) {
+    let newAmount = null;
     if (deposit) {
-      const newAmount = this.accountBalance + amount;
+      newAmount = this.accountBalance + amount;
       this.accountBalance = newAmount;
       return alert(
         `You have deposited $${amount} to your account. \nYour new balance is now $${newAmount}`
       );
     } else {
-      const newAmount = this.accountBalance - amount;
+      newAmount = this.accountBalance - amount;
       this.accountBalance = newAmount;
       return alert(
         `You have withdrew $${amount} from your account, your new balance is now $${newAmount}`
